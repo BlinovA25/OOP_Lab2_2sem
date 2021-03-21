@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;//.Regex;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace OOP_Lab2_1
 {
     public partial class Form1 : Form
     {
-        //Regex newReg = new Regex(pattern, RegexOptions.None);
+        //Regex newReg = new Regex("^[А - Я][а - я]*$");//Русские слова, начинающиеся с заглавной буквы
 
         ToolStripLabel dateLabel1;
         ToolStripLabel timeLabel1;
@@ -20,6 +21,8 @@ namespace OOP_Lab2_1
         ToolStripLabel stateLabel2;
         Timer timer;
         List<Discipline> listDisciplines;
+
+        public List<Discipline> list;
 
         public string State = "";
 
@@ -185,9 +188,9 @@ namespace OOP_Lab2_1
             }
             else 
             { 
-                listDisciplines.Add(discipline);
+                //listDisciplines.Add(discipline);
                 Prototype clone = discipline.Clone();
-                //list.Add((Discipline)clone);
+                list.Add((Discipline)clone);
                 
                 State = "Добавление";
             }
@@ -265,10 +268,23 @@ namespace OOP_Lab2_1
 
         }
 
+
+
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-
+            if (numericUpDown1.Value == 1)
+            {
+                IFactory firstSemFactory = new FirstSemFactory();
+                var property = firstSemFactory.setProperty();
+            }
+            else 
+            {
+                IFactory secondSemFactory = new SecondSemFactory();
+                var property = secondSemFactory.setProperty();
+            }
         }
+
+
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -379,6 +395,54 @@ namespace OOP_Lab2_1
         }
 
         private void button6_Click(object sender, EventArgs e)
+        {
+            string filename = @"F:\OOP\Discipline.xml";
+            XmlSerializeWrapper.Serialize(listDisciplines, filename);
+
+            MessageBox.Show("Информация добавлена в файл");
+            State = "Сохранение";
+        }
+
+        private void колвоЛекцийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = String.Empty;
+
+            var D = from Discipline d in listDisciplines
+                    where d.NumOfLec >= 0
+                    orderby d.NumOfLec
+                    select d;
+
+            foreach (Discipline disc in D)
+            {
+                textBox1.Text += disc.ToString() + "\r\n";
+            }
+
+        }
+
+        private void видКонтроляToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = String.Empty;
+
+            var D = from Discipline d in listDisciplines
+                    orderby d.ControlType
+                    select d;
+
+            foreach (Discipline disc in D)
+            {
+                textBox1.Text += disc.ToString() + "\r\n";
+            }
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            string filename = @"F:\OOP\Discipline.xml";
+            XmlSerializeWrapper.Serialize(listDisciplines, filename);
+
+            MessageBox.Show("Информация добавлена в файл");
+            State = "Сохранение";
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string filename = @"F:\OOP\Discipline.xml";
             XmlSerializeWrapper.Serialize(listDisciplines, filename);

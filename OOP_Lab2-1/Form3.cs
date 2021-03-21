@@ -66,19 +66,24 @@ namespace OOP_Lab2_1
             
 
             var N = from Discipline d in list
-                    where d.lector.Name.IndexOf(textBoxName.Text, StringComparison.OrdinalIgnoreCase) >= 0 orderby d.Kurs
-                    select d;
-            var S = from Discipline d in N//list
-                    where d.Sem == Convert.ToInt32(textBox3.Text)
-                    orderby d.Kurs
-                    select d;
-            var K = from Discipline d in S//list
-                    where d.Kurs == Convert.ToInt32(textBox4.Text)
-                    orderby d.Kurs
+                    where d.lector.Surname.IndexOf(textBoxName.Text, StringComparison.OrdinalIgnoreCase) >= 0 //
                     select d;
 
-            //where (d.Sem == Convert.ToInt32(textBox3.Text))
-            //where (d.Kurs = Convert.ToInt32(textBox4.Text))
+            var S = N;
+            if (textBox3.Text != "")
+            {
+                S = from Discipline d in N
+                        where d.Sem == Convert.ToInt32(textBox3.Text)
+                        select d;
+            }
+
+            var K = S;
+            if (textBox4.Text != "")
+            {
+                K = from Discipline d in S
+                    where d.Kurs == Convert.ToInt32(textBox4.Text)
+                    select d;
+            }
 
             foreach (Discipline disc in K)
             {

@@ -298,6 +298,7 @@ namespace OOP_Lab2_1
             // 
             // textBox1
             // 
+            this.textBox1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.textBox1.Location = new System.Drawing.Point(12, 258);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -425,6 +426,7 @@ namespace OOP_Lab2_1
             this.toolStripButton3.Name = "toolStripButton3";
             this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
             // 
             // toolStripLabel3
             // 
@@ -466,20 +468,23 @@ namespace OOP_Lab2_1
             // колвоЛекцийToolStripMenuItem
             // 
             this.колвоЛекцийToolStripMenuItem.Name = "колвоЛекцийToolStripMenuItem";
-            this.колвоЛекцийToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.колвоЛекцийToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.колвоЛекцийToolStripMenuItem.Text = "Кол-во лекций";
+            this.колвоЛекцийToolStripMenuItem.Click += new System.EventHandler(this.колвоЛекцийToolStripMenuItem_Click);
             // 
             // видКонтроляToolStripMenuItem
             // 
             this.видКонтроляToolStripMenuItem.Name = "видКонтроляToolStripMenuItem";
-            this.видКонтроляToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.видКонтроляToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.видКонтроляToolStripMenuItem.Text = "Вид контроля";
+            this.видКонтроляToolStripMenuItem.Click += new System.EventHandler(this.видКонтроляToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
             // оПрограммеToolStripMenuItem
             // 

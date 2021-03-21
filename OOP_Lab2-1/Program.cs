@@ -39,7 +39,7 @@ namespace OOP_Lab2_1
         }
     }
 
-    public class NotSallingFactory : IFactory
+    public class SecondSemFactory : IFactory
     {
         public IProperty setProperty()
         {
@@ -66,25 +66,60 @@ namespace OOP_Lab2_1
         Prototype Clone();
     }
 
+    public class PulpitAttribute : ValidationAttribute
+    {
+        public override bool IsValid(object value)
+        {
+            if (value != null)
+            {
+                string Pulpit = value.ToString();
+                if (Pulpit == "ИСИТ" && Pulpit == "ПОИТ" && Pulpit == "Мат" && Pulpit == "Физ" && Pulpit == "ДЭиВИ")
+                    return true;
+                else
+                    this.ErrorMessage = "Список возможных названий кафедр: ИСИТ, ПОИТ, ДЭиВИ, Мат, Физ.";
+            }
+            return false;
+        }
+    }
+
 
     public class Lector 
     {
+        [RegularExpression(@"^[А - Я][а - я]*$", ErrorMessage = "Фамилия введена неправильно(скорее всего со строчной буквы или латинским алфавитом).")]
         public string Surname;
+        [RegularExpression(@"^[А - Я]", ErrorMessage = "Имя введено неправильно(необходимо ввести хотя бы одну букву и первая буква должна быть заглавной).")]
         public string Name;
+        [RegularExpression(@"^[А - Я]", ErrorMessage = "Отчество введено неправильно(необходимо ввести хотя бы одну букву и первая буква должна быть заглавной).")]
         public string Otch;
 
         public string Pulpit;
+
+        public Lector() 
+        { }
+
+        LectorBuilder builder;
+        public Lector(LectorBuilder builder)
+        {
+            this.builder = builder;
+        }
+        public void Construct()
+        {
+            builder.setSurname();
+            builder.setName();
+            builder.setOtch();
+        }
     }
 
     [Serializable]
     [XmlRoot(Namespace = "OOP_Lab2_1")]
     [XmlType("Disc")]
-    public class Discipline : Prototype
+    public class Discipline : Prototype // ValidationAttribute, 
     {
         [Required]
         [StringLength(15, MinimumLength = 2)]
         public string Name { get; set; }
-        public string Pulpit;// { get; set; }
+        [Pulpit]
+        public string Pulpit;
         public string Spec;
         public int Sem;
         [Required]
@@ -119,9 +154,44 @@ namespace OOP_Lab2_1
         }
         public override String ToString()
         {
-            return String.Format("{0, -15}  {1}  {2}", lector.Surname, Sem, Kurs);
+            return String.Format("{0, -15} {1, -15} {2,-3}  {3,-3} {4,-3} {5}", lector.Surname, Name, Sem, Kurs, NumOfLec, ControlType);
         }
     }
+
+
+    //builder
+    public abstract class LectorBuilder
+    {
+        public abstract void setSurname();
+        public abstract void setName();
+        public abstract void setOtch();
+        public abstract Lector GetResult();
+    }
+
+    public class ConcreteLectorBuilder : LectorBuilder
+    {
+        Lector lector = new Lector();
+
+        public override void setSurname()
+        {
+            lector.Surname = "Пацей";
+        }
+
+        public override void setName()
+        {
+            lector.Name = "Н";
+        }
+
+        public override void setOtch()
+        {
+            lector.Otch = "В";
+        }
+        public override Lector GetResult()
+        {
+            return lector;
+        }
+    }
+
 
     public static class XmlSerializeWrapper
     {
@@ -137,7 +207,7 @@ namespace OOP_Lab2_1
         public static T Deserialize<T>(string filename)
         {
             T obj;
-            using (FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            using (FileStream fs = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Read))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
                 obj = (T)serializer.Deserialize(fs);
