@@ -12,8 +12,6 @@ namespace OOP_Lab2_1
 {
     public partial class Form2 : Form
     {
-        public static string Surname, LName, Otch;
-
         public Form2()
         {
             InitializeComponent();
