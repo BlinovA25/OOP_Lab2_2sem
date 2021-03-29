@@ -89,13 +89,6 @@ namespace OOP_Lab2_1
             {
                     textBox2.Text += disc.ToString() + "\r\n";
             }
-
-            toolStripStatusLabel1.Text = "Поиск";
-            //foreach (Discipline d in list)
-            //{
-            //    if (d.Name.IndexOf(textBoxName.Text, StringComparison.OrdinalIgnoreCase) >= 0)
-            //        textBox2.Text += d.ToString() + "\r\n";
-            //}
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)

@@ -8,9 +8,11 @@ using System.Runtime.Serialization;
 using System.IO;
 using System.Drawing;
 using System.ComponentModel.DataAnnotations;
+using NuGet.Protocol.Plugins;
 
 namespace OOP_Lab2_1
 {
+    //4 лаба
     public interface IFactory
     {
         IProperty setProperty();
@@ -50,7 +52,8 @@ namespace OOP_Lab2_1
     public sealed class Singletone
     {
         private static Singletone instance;
-        private Singletone() { }
+        private Singletone()
+        { }
         private static Singletone GetInstance()
         {
             return instance ?? (instance = new Singletone());
@@ -82,6 +85,138 @@ namespace OOP_Lab2_1
         }
     }
 
+
+    //5 лаба(структурные паттерны и паттерны поведения)
+    //State 
+    public enum KursState
+    {
+        first = 1,
+        second,
+        third,
+        forth
+    }
+
+    public class Kurs
+    {
+        public KursState State { get; set; }
+
+        public Kurs(KursState st)
+        {
+            State = st;
+        }
+
+        public KursState More(KursState State)
+        {
+            if (State == KursState.first)
+            {
+                MessageBox.Show("1 курс -> 2 курс");
+                State = KursState.second;
+                return State;
+            }
+            else if (State == KursState.second)
+            {
+                MessageBox.Show("2 курс -> 3 курс");
+                State = KursState.third;
+                return State;
+            }
+            else if (State == KursState.third)
+            {
+                MessageBox.Show("3 курс -> 4 курс");
+                State = KursState.forth;
+                return State;
+            }
+            else
+            {
+                return State;
+            }
+        }
+        public KursState Less(KursState State)
+        {
+            if (State == KursState.forth)
+            {
+                MessageBox.Show("4 курс -> 3 курс");
+                State = KursState.third;
+                return State;
+            }
+            else if (State == KursState.third)
+            {
+                MessageBox.Show("3 курс -> 2 курс");
+                State = KursState.second;
+                return State;
+            }
+            else if (State == KursState.second)
+            {
+                MessageBox.Show("2 курс -> 1 курс");
+                State = KursState.first;
+                return State;
+            }
+            else
+            {
+                return State;
+            }
+        }
+    }
+
+    //Decorator
+    abstract class Subject
+    {
+        public Subject(string n)
+        {
+            this.Name = n;
+        }
+        public string Name { get; protected set; }
+        public abstract int NumOfLessons();
+    }
+
+    class OOPSubject : Subject
+    {
+        public OOPSubject() : base("ООП")
+        { }
+        public override int NumOfLessons()
+        {
+            return 20;
+        }
+    }
+    class DBSubject : Subject
+    {
+        public DBSubject() : base("Базы данных")
+        { }
+        public override int NumOfLessons()
+        {
+            return 20;
+        }
+    }
+
+    abstract class SubjectDecorator : Subject
+    {
+        protected Subject subject;
+        public SubjectDecorator(string n, Subject subject) : base(n)
+        {
+            this.subject = subject;
+        }
+    }
+
+    class FirstSemSubject : SubjectDecorator
+    {
+        public FirstSemSubject(Subject subject) : base(subject.Name + " первый семестр", subject)
+        { }
+
+        public override int NumOfLessons()
+        {
+            return subject.NumOfLessons() + 8;
+        }
+    }
+
+    class SecondSemSubject : SubjectDecorator
+    {
+        public SecondSemSubject(Subject subject) : base(subject.Name + " второй семестр", subject)
+        { }
+
+        public override int NumOfLessons()
+        {
+            return subject.NumOfLessons() + 10;
+        }
+    }
 
     public class Lector 
     {
@@ -132,9 +267,7 @@ namespace OOP_Lab2_1
         public Lector lector;
 
         public Discipline()
-        {
-
-        }
+        { }
 
         public Discipline(string Name, string Spec, int Sem, int Kurs, int NumOfLec, int NumOfLab, string ControlType, Lector lector)
         {
@@ -159,6 +292,7 @@ namespace OOP_Lab2_1
     }
 
 
+
     //builder
     public abstract class LectorBuilder
     {
@@ -166,6 +300,7 @@ namespace OOP_Lab2_1
         public abstract void setName();
         public abstract void setOtch();
         public abstract Lector GetResult();
+        public abstract void ToString();
     }
 
     public class ConcreteLectorBuilder : LectorBuilder
@@ -189,6 +324,12 @@ namespace OOP_Lab2_1
         public override Lector GetResult()
         {
             return lector;
+        }
+        public override void ToString()
+        {
+            MessageBox.Show($"{lector.Surname} {lector.Name} {lector.Otch}");
+
+
         }
     }
 
@@ -223,8 +364,6 @@ namespace OOP_Lab2_1
         public static string Name;
         public static string Otch;
         public static string Pulpit;
-
-
     }
         static class Program
     {
@@ -237,6 +376,13 @@ namespace OOP_Lab2_1
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+
+            //паттерн Command
+            //Invoker invoker = new Invoker();
+            //Receiver receiver = new Receiver();
+            //ConcreteCommand command = new ConcreteCommand(receiver);
+            //invoker.SetCommand(command);
+            //invoker.Run();
         }
     }
 }

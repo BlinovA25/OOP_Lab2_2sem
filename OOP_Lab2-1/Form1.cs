@@ -12,8 +12,6 @@ namespace OOP_Lab2_1
 {
     public partial class Form1 : Form
     {
-        //Regex newReg = new Regex("^[А - Я][а - я]*$");//Русские слова, начинающиеся с заглавной буквы
-
         ToolStripLabel dateLabel1;
         ToolStripLabel timeLabel1;
         ToolStripLabel infoLabel1;
@@ -23,9 +21,12 @@ namespace OOP_Lab2_1
         List<Discipline> listDisciplines;
 
         public List<Discipline> list;
+        public KursState KState = KursState.first; // начальное состояиние для паттерна стейт
 
         public string State = "";
-
+        //int countKurs = (int)numericUpDown2.Minimum;
+        public int countKurs = 1;
+        public int count = 0;
         public Form1(Form2 f2)
         {
             InitializeComponent();
@@ -83,9 +84,21 @@ namespace OOP_Lab2_1
         }
 
 
-
+        //демонстрация State
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
+            if (numericUpDown2.Value > countKurs)
+            {
+                Kurs k = new Kurs(KState);
+                KState = k.More(KState);
+                countKurs = (int)numericUpDown2.Value;
+            }
+            else
+            {
+                Kurs k = new Kurs(KState);
+                KState = k.Less(KState);
+                countKurs = (int)numericUpDown2.Value;
+            }
 
         }
 
@@ -148,13 +161,9 @@ namespace OOP_Lab2_1
             }
         }
 
-        //List<Discipline> list = new List<Discipline>();
-
-
         private void button1_Click(object sender, EventArgs e)
         {
-            string filename = @"F:\OOP\Discipline.xml";
-
+            //string filename = @"F:\OOP\Discipline.xml";
             Discipline discipline = new Discipline();
 
             Lector lector = new Lector();
@@ -188,9 +197,10 @@ namespace OOP_Lab2_1
             }
             else 
             { 
-                //listDisciplines.Add(discipline);
+                //clone
+                listDisciplines.Add(discipline);
                 Prototype clone = discipline.Clone();
-                list.Add((Discipline)clone);
+                listDisciplines.Add((Discipline)clone);//list
                 
                 State = "Добавление";
             }
@@ -230,9 +240,10 @@ namespace OOP_Lab2_1
                 textBox1.Text += $"Лектор: {discipline.lector.Surname}";
                 textBox1.Text += $" {discipline.lector.Name}";
                 textBox1.Text += $" {discipline.lector.Otch}\r\n\r\n";
+                count++;
             }
 
-            State = "Вывод";
+            State = $"Вывод. Количество объектов: {count}.";
         }
 
         private static List<Discipline> ReadData()
@@ -263,7 +274,7 @@ namespace OOP_Lab2_1
 
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        public void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -276,11 +287,13 @@ namespace OOP_Lab2_1
             {
                 IFactory firstSemFactory = new FirstSemFactory();
                 var property = firstSemFactory.setProperty();
+                textBox4.Text = property.Property;
             }
             else 
             {
                 IFactory secondSemFactory = new SecondSemFactory();
                 var property = secondSemFactory.setProperty();
+                textBox4.Text = property.Property;
             }
         }
 
@@ -449,6 +462,65 @@ namespace OOP_Lab2_1
 
             MessageBox.Show("Информация добавлена в файл");
             State = "Сохранение";
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = String.Empty;
+
+            var D = from Discipline d in listDisciplines
+                    where d.NumOfLec >= 0
+                    orderby d.NumOfLec
+                    select d;
+
+            foreach (Discipline disc in D)
+            {
+                textBox1.Text += disc.ToString() + "\r\n";
+            }
+        }
+
+        private void toolStripButton4_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = String.Empty;
+
+            var D = from Discipline d in listDisciplines
+                    orderby d.ControlType
+                    select d;
+
+            foreach (Discipline disc in D)
+            {
+                textBox1.Text += disc.ToString() + "\r\n";
+            }
+        }
+
+        private void textBox4_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            textBox4.Text = string.Empty;
+
+            ConcreteLectorBuilder CLB1 = new ConcreteLectorBuilder();
+            //Lector lector = new Lector();
+
+            CLB1.setSurname();
+            CLB1.setName();
+            CLB1.setOtch();
+            CLB1.GetResult(); //).ToString();
+            CLB1.ToString();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Subject subject1 = new OOPSubject();
+            subject1 = new FirstSemSubject(subject1);
+            Subject subject2 = new DBSubject();
+            subject2 = new SecondSemSubject(subject2);
+
+            MessageBox.Show($"Изначальное количество лк = 20\r\nДисциплина -- {subject1.Name}, кол-во лк -- {subject1.NumOfLessons()} " +
+                $"\r\nДисциплина -- {subject2.Name}, кол-во лк -- {subject2.NumOfLessons()}");
         }
     }
 }

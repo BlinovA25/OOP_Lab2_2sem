@@ -56,6 +56,10 @@ namespace OOP_Lab2_1
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.поискToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сортировкаПоToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,6 +70,9 @@ namespace OOP_Lab2_1
             this.скрытьПанельToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -395,7 +402,11 @@ namespace OOP_Lab2_1
             this.toolStripButton1,
             this.toolStripLabel1,
             this.toolStripButton3,
-            this.toolStripLabel3});
+            this.toolStripLabel3,
+            this.toolStripButton2,
+            this.toolStripLabel2,
+            this.toolStripButton4,
+            this.toolStripLabel4});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(975, 25);
@@ -435,6 +446,38 @@ namespace OOP_Lab2_1
             this.toolStripLabel3.Text = "Сохранить";
             this.toolStripLabel3.Click += new System.EventHandler(this.toolStripLabel3_Click);
             // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(173, 22);
+            this.toolStripLabel2.Text = "Сортировка по кол-ву лекций";
+            // 
+            // toolStripButton4
+            // 
+            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
+            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton4.Name = "toolStripButton4";
+            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton4.Text = "toolStripButton4";
+            this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(173, 22);
+            this.toolStripLabel4.Text = "Сортировка по виду контроля";
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -468,14 +511,14 @@ namespace OOP_Lab2_1
             // колвоЛекцийToolStripMenuItem
             // 
             this.колвоЛекцийToolStripMenuItem.Name = "колвоЛекцийToolStripMenuItem";
-            this.колвоЛекцийToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.колвоЛекцийToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.колвоЛекцийToolStripMenuItem.Text = "Кол-во лекций";
             this.колвоЛекцийToolStripMenuItem.Click += new System.EventHandler(this.колвоЛекцийToolStripMenuItem_Click);
             // 
             // видКонтроляToolStripMenuItem
             // 
             this.видКонтроляToolStripMenuItem.Name = "видКонтроляToolStripMenuItem";
-            this.видКонтроляToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.видКонтроляToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.видКонтроляToolStripMenuItem.Text = "Вид контроля";
             this.видКонтроляToolStripMenuItem.Click += new System.EventHandler(this.видКонтроляToolStripMenuItem_Click);
             // 
@@ -521,12 +564,45 @@ namespace OOP_Lab2_1
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(743, 263);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(220, 59);
+            this.textBox4.TabIndex = 35;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged_1);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(743, 328);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(103, 86);
+            this.button7.TabIndex = 36;
+            this.button7.Text = "Builder";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button8.Location = new System.Drawing.Point(862, 328);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(101, 86);
+            this.button8.TabIndex = 37;
+            this.button8.Text = "Decorator";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.ForestGreen;
             this.ClientSize = new System.Drawing.Size(975, 628);
+            this.Controls.Add(this.button8);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.toolStrip1);
@@ -623,6 +699,13 @@ namespace OOP_Lab2_1
         private System.Windows.Forms.ToolStripMenuItem колвоЛекцийToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem видКонтроляToolStripMenuItem;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripButton toolStripButton4;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
     }
 }
 
